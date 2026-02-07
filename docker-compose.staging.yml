@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: agriyogi_web_staging
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./:/app:rw
+    command: ["gunicorn", "--bind", "0.0.0.0:5000", "web_app:app", "--workers=3", "--threads=4"]
+
+  db:
+    image: postgres:15
+    container_name: agriyogi_db_staging
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: agriyogi
+      POSTGRES_PASSWORD: agriyogi_pass
+      POSTGRES_DB: agriyogi
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    container_name: agriyogi_redis_staging
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:

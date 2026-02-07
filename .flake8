@@ -1,0 +1,4 @@
+[flake8]
+max-line-length = 120
+extend-ignore = W293,F541
+exclude = web_app_legacy.py
