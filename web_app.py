@@ -28,6 +28,9 @@ try:
 except ImportError:
     pass
 
+# Ensure logs directory exists before configuring file handler
+os.makedirs('logs', exist_ok=True)
+
 # Configure structured logging
 log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(
@@ -39,9 +42,6 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
-
-# Ensure logs directory exists
-os.makedirs('logs', exist_ok=True)
 
 # Flask app configuration
 app = Flask(__name__, static_folder='static', template_folder='templates')
