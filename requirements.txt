@@ -10,7 +10,7 @@ qrcode[pil]==8.0
 Pillow==10.4.0
 
 # Security & Production
-flask-limiter==3.8.1
+flask-limiter==4.1.1
 python-dotenv==1.0.0
 
 # Data Validation
